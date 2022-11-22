@@ -1,4 +1,5 @@
 // get all necessary libraries into objects 
+require('dotenv').config()
 const express = require('express')
 const querystring = require('querystring');
 const cors = require('cors');
@@ -11,7 +12,7 @@ const db = require('./db').get_db()
 
 // express is server framework that handles all incoming traffic / gives way to interface with it
 const app = express()
-const port = 8888
+const port = process.env.PORT
 
 const stateKey = 'spotify_auth_state';
 const accessTokenKey = 'spotify_access_token';
