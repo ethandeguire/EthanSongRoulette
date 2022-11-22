@@ -20,7 +20,7 @@ const refreshTokenKey = 'spotify_refresh_token';
 
 const client_id = '9bb800a54e494ae98535595d56a01e09'; // Your client id
 const client_secret = '94732f44671d4f4194180dae7fd8b63b'; // Your secret
-const redirect_uri = 'http://localhost:8888/callback'; // Your redirect uri
+const redirect_uri = process.env.callback_uri; // Your redirect uri
 
 app.set('view engine', 'ejs')
 app.use(cors())
