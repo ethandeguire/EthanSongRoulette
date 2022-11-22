@@ -1,0 +1,53 @@
+<h1>Spotify Thing Party</h1>
+
+<h4>Party ID: <%= partyid  %></h4>
+
+<script> 
+
+    let song_data = {}
+
+    function get_song(){
+        let id =  window.location.pathname.split('/')[2]
+        fetch("/party/" + id + "/getsong")
+            .then((response) => response.json())
+            .then((data) => song_data = data)
+            .then(() => {
+                let artists = song_data.song.track.artists.map(m => m.name)
+                console.log(song_data.song, artists)
+                document.getElementById("songname").innerText = song_data.song.track.name + " by " + artists.join(", ")
+                document.getElementById("coverart").src = song_data.song.track.album.images[1].url
+                document.getElementById("usernames").innerText = ""
+                document.getElementById("photoholder").innerText = ""
+            })
+    }
+
+    function reveal_song(){
+        console.log("users:", song_data.users_have_song)
+        let usernames = song_data.users_have_song.map(user => user.display_name)
+        document.getElementById("usernames").innerText = usernames.join(", ")
+
+        let ph = document.getElementById('photoholder');
+        ph.innerHTML = ''
+        for (user in song_data.users_have_song){
+            let img = document.createElement('img');
+
+            if (user.images) img.src = user.images[0].url
+            else img.src = 'https://accounts.scdn.co/sso/ott/_next/static/public/user-icon-new.png'
+
+            ph.appendChild(img);
+        }
+    }
+
+</script>
+
+
+<h4><button onclick = "get_song()">Pick a random song</button></h4>
+
+<p id="songname"></p>
+<img id="coverart" src="">
+
+<h4><button onclick = "reveal_song()">Reveal who had the song</button></h4>
+
+<p id="usernames"></p>
+
+<div id="photoholder"></div>

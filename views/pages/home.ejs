@@ -1,0 +1,36 @@
+<h1>Spotify Song Game Home</h1>
+
+<div>
+    <h3>You are:</h3>
+    <p>Display name <b><%= user.display_name  %></b></p>
+    <p>ID <b><%= user.id  %></b></p>
+    <p>Email <b><%= user.email  %></b></p>
+    <p>Spotify URI <b><%= user.external_urls.spotify  %></b></p>
+    <p>Link <b><%= user.href  %></b></p>
+    <p>Country <b><%= user.country  %></b></p>
+</div>
+
+<div>
+    <h3>Create new game:</h3>
+    
+</div>
+
+<div>
+    <h3>Liked songs:</h3>
+    <% songs.forEach(function(song){ %>
+        <p style="display:inline"><%= song.track.name %><b> by: </b></p>
+
+        <% for (var j = 0; j < song.track.artists.length; j++) {%>
+
+            <% if (j == song.track.artists.length - 1) { %>
+                <p style="display:inline"><b><%= song.track.artists[j].name %></b> </p>
+            <% } else { %>
+                <p style="display:inline"><b><%= song.track.artists[j].name %>, </b></p>
+            <% } %>
+
+        <% } %>
+
+      <p> </p>
+
+    <% }); %>
+</div>
